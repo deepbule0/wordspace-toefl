@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ScanTheme" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:colorAccent">#254c3b</item>
+    </style>
+    <style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">#254c3b</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">#f5f6f2</item>
+    </style>
+</resources>

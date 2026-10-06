@@ -1,0 +1,28 @@
+import {mkdir,writeFile} from 'node:fs/promises';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
+import {fileURLToPath} from 'node:url';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {initialState,completeList} from '../public/engine.mjs';
+import {toggleFavorite} from '../public/favorites.mjs';
+import {emptyDocument,updateDocument,mergeDocuments} from '../public/sync-model.mjs';
+import {seal,unseal} from '../public/sync-crypto.mjs';
+import {pairingMatrix,pairingPayload} from '../public/pairing-qr.mjs';
+import {resolveAndroidTools,toolExecutable,findCachedJar} from './android-tools.mjs';
+
+const root=fileURLToPath(new URL('../',import.meta.url)),run=promisify(execFile);
+const tools=await resolveAndroidTools(root),java=tools.java;
+const scratch=path.join(root,'.build-tools/native-interop');await mkdir(scratch,{recursive:true});
+const findJar=filename=>findCachedJar(tools.cache,filename);
+const jsonJar=await findJar('json-20250517.jar'),coreJar=await findJar('core-3.4.1.jar'),classpath=[jsonJar,coreJar,scratch].join(path.delimiter);
+const base=updateDocument(emptyDocument(),initialState(),'device-base0000'),a=structuredClone(initialState()),b=structuredClone(a);
+toggleFavorite(a,100);toggleFavorite(a,100);completeList(a,'new',25);toggleFavorite(b,200);completeList(b,'review',11);b.sessions['new:25']={index:2,seen:[2100,2101]};
+const left=updateDocument(base,a,'device-aaaaaaaa'),right=updateDocument(base,b,'device-bbbbbbbb');
+const key=Buffer.alloc(32,7).toString('base64'),payload={hub:'fixture-only-hub',requestId:'fixture-request-0000',document:base},code=Buffer.from(JSON.stringify({version:1,address:'http://192.168.1.2:4174',key,hub:'fixture-only-hub'})).toString('base64');
+const fixture={key,payload,packet:await seal(key,payload),left,right,matrix:pairingMatrix(code)};
+await writeFile(path.join(scratch,'fixture.json'),JSON.stringify(fixture));
+await run(toolExecutable(java,'javac'),['-encoding','UTF-8','-cp',classpath,'-d',scratch,path.join(root,'android/app/src/main/java/cn/wordspace/toefl/SyncProtocol.java'),path.join(root,'tests/native/NativeInterop.java')],{windowsHide:true});
+const {stdout}=await run(toolExecutable(java,'java'),['-cp',classpath,'cn.wordspace.toefl.NativeInterop',path.join(scratch,'fixture.json')],{windowsHide:true});
+const actual=JSON.parse(stdout);assert.equal(actual.qr,pairingPayload(code));assert.deepEqual(actual.merged,mergeDocuments(left,right));assert.deepEqual(actual.decrypted,payload);assert.deepEqual(await unseal(key,actual.packet),payload);
+console.log('PASS: local QR decodes with the Android ZXing decoder; JS ↔ Java AES-GCM and field-level merge are compatible.');

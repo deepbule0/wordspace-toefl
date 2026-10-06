@@ -1,0 +1,32 @@
+# Private runtime state and credentials — never commit.
+.signing/
+.wordspace-sync/
+.sources/
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+*.pem
+*.p12
+*.pfx
+*progress-backup*
+*进度备份*
+
+# Tools, build results, local diagnostics and editor state.
+node_modules/
+.build-tools/
+.gradle/
+**/build/
+android/local.properties
+outputs/
+*.apk
+*.aab
+*.etl
+*.pcap
+*.pcapng
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
