@@ -14,3 +14,11 @@
 安卓构建使用本机已安装的 JDK、SDK 和已解析的 Gradle 缓存，没有使用或上传原 APK 的私人 release 签名。构建日志有 SDK XML 解析版本与 Gradle 未来弃用提醒，构建仍成功。这不是实体一加/华为安装测试，也不是对所有平台环境的实机保证。
 
 源码发布为私有个人备份；第三方学习数据与音频的公开再分发授权未因本次上传而获得确认。GitHub 不是学习进度同步服务。
+
+## GitHub 远程检查状态
+
+首次推送已成功，远程文件树逐项与本地提交的文件路径、内容哈希和文件模式比对一致，含 4,206 个文件、4,108 个录音。
+
+GitHub Actions 的 `Source checks` 工作流已注册为 active，仓库 Actions 已启用、允许工作流所用动作。但[首次远程运行](https://github.com/deepbule0/wordspace-toefl/actions/runs/37420289392)在创建 job 前结束，状态为 `startup_failure`，关联到空名称的 `BuildFailed` 记录，没有 job、测试执行或日志。因此不宣称 GitHub 远程检查通过，也不能仅据此确定为账号限制、计费或平台故障。
+
+本地检查结果仍如上所述。未改变仓库私有设置、账号计费或 Actions 安全权限以尝试绕过问题。
