@@ -1,21 +1,23 @@
-# 词间 · Wordspace TOEFL
+**English** | [简体中文](README.zh-CN.md)
 
-个人托福背词系统：本机网页版、独立 Android App，以及电脑和手机之间的局域网加密同步。当前应用版本 **1.1.3**。
+# Wordspace TOEFL · 词间
 
-本仓库公开提供**完整源码与学习资料**，含 48 个 List、4,264 个词、练习例句与用法，以及 4,108 个本地发音文件。不是新东方或 ETS 官方应用。发布者已确认拥有所含词库和录音的公开再分发授权，并要求完整公开；各第三方来源与许可声明仍保留。公开可见不等于向下载者授予额外的商业使用或再分发许可。来源与许可见 [SOURCES.md](SOURCES.md) 和 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+A personal TOEFL vocabulary study system with a local web interface, a standalone Android app, and encrypted LAN synchronization between desktop and mobile. Current app version: **1.1.3**.
 
-## 功能
+This public repository includes the **complete source code and study materials**: 48 Lists, 4,264 words, practice examples and usage notes, and 4,108 local pronunciation recordings. It is not an official New Oriental or ETS app. The publisher has confirmed authorization to redistribute the included vocabulary and recordings publicly. Existing third-party notices are retained; public availability does not grant additional commercial-use or redistribution rights to downstream users. See [sources and provenance](SOURCES.md) and [third-party notices](THIRD_PARTY_NOTICES.md), both currently in Chinese.
 
-- 自定每日新学、复习 List 数量；默认每天新学 2 个、复习 3 个，已学完 24、已复习 10。
-- 单词、音标、词性、中文、发音、例句与用法共用界面；中文和音标独立隐藏。
-- 收藏星按浅色、深色、最深色、取消循环，可按 List 和等级组合筛选。
-- 切词保持页面和词表上下位置；首次进入 List 与离开练习页正常导航。
-- 本地保存、导入导出备份，扫码配对后用 AES-256-GCM 加密同步，不上传云端进度服务。
-- Android 本地扫码、系统英语备用朗读和系统调度的后台补同步，不承诺后台实时运行。
+## Features
 
-## 网页版快速开始
+- Customize daily new-learning and review goals by List. Defaults: 2 new Lists and 3 review Lists per day, with learning completed through List 24 and review through List 10.
+- Study words, phonetics, parts of speech, Chinese definitions, pronunciation, example sentences, and usage notes in one interface. Hide Chinese information and phonetics independently.
+- Cycle favorite stars through light, darker, darkest, and unmarked; combine List and level filters.
+- Keep both page and word-list scroll positions when switching words. Opening a List or leaving the study view still uses normal navigation.
+- Save progress locally, import/export backups, and pair devices with a QR code for AES-256-GCM encrypted sync. Learning progress is not uploaded to a cloud service.
+- Use local Android QR scanning, system English text-to-speech as a fallback, and system-scheduled background sync. Real-time background execution is not guaranteed.
 
-准备 [Node.js](https://nodejs.org/) 22 或 24。无 npm 外部依赖，不需要 `npm install`。
+## Web quick start
+
+Install [Node.js](https://nodejs.org/) 22 or 24. There are no external npm dependencies, so `npm install` is not required.
 
 ```sh
 git clone https://github.com/deepbule0/wordspace-toefl.git
@@ -23,75 +25,75 @@ cd wordspace-toefl
 npm start
 ```
 
-打开 <http://127.0.0.1:4173/>。Windows 也可双击 `启动背词系统.cmd`。进度保存于当前浏览器；下载源码不会自动恢复旧进度，换电脑或浏览器前请导出备份。
+Open <http://127.0.0.1:4173/>. On Windows, you can also double-click `启动背词系统.cmd`. Progress is stored in the current browser; cloning the repository does not restore previous progress automatically. Export a backup before changing computers or browsers.
 
 ```sh
 npm test
 npm run audit
 ```
 
-本地测试、安卓构建与发布检查记录见 [docs/VERIFICATION.md](docs/VERIFICATION.md)。首次 GitHub 自动检查在创建任务前启动失败，尚未定位原因，不等同于本地测试失败或远程检查通过。
+Local tests, Android builds, and publication checks are recorded in [docs/VERIFICATION.md](docs/VERIFICATION.md) (Chinese). The initial GitHub Actions run failed before creating any jobs; its cause has not been established. This is neither a local test failure nor evidence that remote checks passed.
 
-快捷键：左右方向键切词，空格隐藏／揭晓释义，P 发音，S 循环收藏等级。输入框、按钮获得焦点时保留控件自身的键盘行为。
+Keyboard shortcuts: Left/Right to switch words, Space to hide/reveal definitions, P for pronunciation, and S to cycle favorite levels. Focused inputs and buttons retain their own keyboard behavior.
 
-## 电脑与手机同步
+## Desktop and mobile sync
 
-保持网页运行，另开终端：
+Keep the web server running and open another terminal:
 
 ```sh
 npm run sync
 ```
 
-Windows 可双击 `启动手机同步.cmd` 同时启动两项服务。在电脑网页显示配对二维码，手机 App 扫码并确认。配对码含密钥，只交给自己的设备。
+On Windows, `启动手机同步.cmd` starts both services. Display the pairing QR code in the desktop web interface, then scan and confirm it in the Android app. Pairing codes contain a key: share them only with your own devices.
 
-网页仅监听本机 `127.0.0.1:4173`；同步服务使用局域网 TCP 4174。两端须可互访，校园网、访客 Wi-Fi 可能隔离设备；同一个 Wi-Fi 名称不代表能互访。可用自己可控的手机热点，不要关闭全局防火墙或绕过网络策略。详见 [手机安装与同步说明.md](手机安装与同步说明.md)。
+The web server listens only on `127.0.0.1:4173`; the LAN sync service uses TCP port 4174. Both devices must be able to reach each other. Campus and guest Wi-Fi may isolate clients, even on the same Wi-Fi network. A personal hotspot can be an alternative. Do not disable the system-wide firewall or bypass network policies. See the [Android installation and sync guide](手机安装与同步说明.md) (Chinese).
 
-## Android 构建
+## Android build
 
-最低 Android 8 / API 26，compileSdk 和 targetSdk 均为 36，不依赖 Google Play 服务。需较新的系统 WebView；未宣称在所有一加、华为设备上完成实机测试。
+Minimum Android version: Android 8 / API 26. Both `compileSdk` and `targetSdk` are 36. Google Play services are not required. A recent system WebView is needed; comprehensive testing on all OnePlus or Huawei devices is not claimed.
 
-1. 安装 JDK 17 或 21、Android SDK Platform 36、Build Tools 35.0.0、Android command-line tools，并自行阅读和接受 SDK 许可。
-2. 设置 `JAVA_HOME` 与 `ANDROID_HOME`，也可用 `WORDSPACE_JAVA_HOME` 与 `WORDSPACE_ANDROID_SDK`。
-3. 执行以下构建命令，或在 Android Studio 打开 `android/`。
+1. Install JDK 17 or 21, Android SDK Platform 36, Build Tools 35.0.0, and Android command-line tools. Read and accept the SDK license yourself.
+2. Set `JAVA_HOME` and `ANDROID_HOME`, or use `WORDSPACE_JAVA_HOME` and `WORDSPACE_ANDROID_SDK`.
+3. Run the commands below, or open `android/` in Android Studio.
 
-附带 Gradle 8.13 Wrapper，下载地址和 SHA-256 固定。首次运行从 Gradle 官方来源下载工具；首次构建还从 Google Maven / Maven Central 解析依赖。
+The project includes the Gradle 8.13 Wrapper with a pinned distribution URL and SHA-256 checksum. Its first run downloads Gradle from the official source; the first build also resolves dependencies from Google Maven and Maven Central.
 
 ```sh
-# 调试签名的 APK
+# Debug-signed APK
 npm run android:debug
 
-# 私人签名 release APK、lint、JVM 测试与扫码运行类核验
+# Personally signed release APK, lint, JVM tests, and scanner runtime checks
 npm run android:build
 ```
 
-结果位于 `outputs/`，输出版本读取 `package.json`。工具、缓存、签名和 APK 都不提交到 Git。
+Output files are written to `outputs/`, with the output version read from `package.json`. Tools, caches, signing files, and APKs are not committed to Git.
 
-**签名注意：**仓库不含原 APK 的私人签名。新环境首次 release 构建会在 `.signing/` 生成新签名；新签名不能覆盖旧签名的 App。覆盖升级须由拥有者在本机安全恢复原 `.signing/`，不能提交密钥。不要为换签名直接卸载旧版；卸载会清除手机进度，先导出备份。
+**Signing:** The repository does not contain the original APK's private signing key. A first release build on a new machine creates a new key under `.signing/`. An APK signed with a different key cannot update the existing app in place. For compatible updates, the owner must securely restore the original `.signing/` locally; never commit it. Do not simply uninstall the old app to resolve a signing mismatch: uninstalling erases mobile progress, so export a backup first.
 
-构建后可运行 `npm run test:native` 验证 JS / Java 加密、合并互通与 ZXing 解码配对二维码。脚本从 Gradle 缓存查找已固定版本的依赖 JAR，需先完成安卓依赖解析。
+After building, run `npm run test:native` to check JavaScript/Java encryption and merge interoperability, plus native ZXing decoding of pairing QR codes. The script locates pinned dependency JARs in the Gradle cache, so Android dependencies must have been resolved first.
 
-## 目录
+## Project layout
 
 ```text
-public/                 共用网页界面、生成词库、例句和 audio/ 录音
-android/                原生扫码/TTS/网络/后台同步、JVM 测试与 Gradle Wrapper
-server.mjs              本机网页服务
-sync-server.mjs         局域网加密同步服务
-network-info.mjs        电脑网络信息
-scripts/                数据维护、安卓构建、发布审计与诊断工具
-tests/                  Node、跨语言与 Windows 检测测试
-SOURCES.md              学习资料来源与限制
-THIRD_PARTY_NOTICES.md   第三方代码许可索引
+public/                 Shared web UI, generated vocabulary, examples, and audio/
+android/                Native QR/TTS/network/background sync, JVM tests, Gradle Wrapper
+server.mjs              Local web server
+sync-server.mjs         Encrypted LAN sync service
+network-info.mjs        Desktop network information
+scripts/                Data maintenance, Android builds, publication audit, diagnostics
+tests/                  Node, cross-language, and Windows diagnostic tests
+SOURCES.md              Study-material provenance and limitations
+THIRD_PARTY_NOTICES.md   Third-party license index
 ```
 
-已生成的数据可直接使用。重新抽取须自行准备 `.sources/` 来源文件与有权使用的 Anki 卡组，原始下载不提交。`python scripts/build_data.py --deck /path/to/TOEFL.apkg` 指定自己的输入，不依赖某个用户的下载目录。
+The generated data is ready to use. Rebuilding it requires your own `.sources/` inputs and an Anki deck you are authorized to use; original downloads are not included. Use `python scripts/build_data.py --deck /path/to/TOEFL.apkg` to select your input rather than relying on a particular user's Downloads directory.
 
-## 安全与维护
+## Security and maintenance
 
-- 不提交签名、配对密钥、同步副本、个人进度备份、日志或抓包报告。
-- GitHub 用于源码和静态资料备份，不用于手机进度自动同步。
-- 保留第三方许可，不额外授予整个代码仓库或学习素材的开源再分发许可。
-- GitHub Actions 检查 Node 测试、敏感文件规则与 Windows 检测安全逻辑，不使用私人签名或自动上传 APK。
-- Windows 限时检测须提供两端当前 IP，由用户手动以管理员身份执行；测试只验证判断逻辑，不启动抓包。
+- Never commit signing files, pairing keys, sync replicas, personal progress backups, logs, or packet-capture reports.
+- GitHub hosts source code and static study materials; it is not the mobile progress synchronization service.
+- Keep third-party notices. Publication does not grant an additional, repository-wide open-source redistribution license for the code or learning materials.
+- GitHub Actions checks Node tests, sensitive-file rules, and Windows diagnostic safety logic. It does not use private signing keys or automatically upload APKs.
+- Time-limited Windows network diagnostics require the current IP addresses of both devices and manual execution as administrator. The safety tests validate logic only and do not start packet capture.
 
-完整操作见 [使用说明.md](使用说明.md)。
+For detailed instructions, see the [usage guide](使用说明.md) (Chinese).
