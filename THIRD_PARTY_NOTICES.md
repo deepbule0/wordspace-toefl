@@ -9,6 +9,6 @@
 | AndroidX 扫码支持库 | Android Open Source Project / Apache-2.0 | `public/vendor/NOTICE.txt` |
 | 补充词义与开放例句 | KyleBing/english-vocabulary / BSD-3-Clause | `public/dictionary_LICENSE.txt`、`SOURCES.md` |
 | Gradle Wrapper | Gradle / Apache-2.0 | Wrapper 顶部声明，`public/vendor/Apache-2.0.txt` |
-| List 顺序、Anki 基础数据与录音 | 多个公开参考来源，再分发授权未确认 | `SOURCES.md`，仅用于本私有个人备份 |
+| List 顺序、Anki 基础数据与录音 | 多个公开参考来源，发布者确认拥有本次公开再分发授权 | `SOURCES.md`，不自动授予下载者额外商业或再分发许可 |
 
-保留第三方版权与许可声明。公开代码前应另行拆除未确认授权的词库、录音及派生安装包；私有备份不构成这些素材的公开或商业使用授权。
+保留第三方版权与许可声明。本次完整公开按发布者的授权确认进行，不代表所有学习素材适用同一个开源许可；下载者应按实际适用条款使用。

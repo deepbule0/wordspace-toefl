@@ -23,4 +23,4 @@ for (const required of ['README.md', 'SOURCES.md', 'THIRD_PARTY_NOTICES.md', 'pu
   if (!files.includes(required)) throw new Error('缺少源码发布文件：' + required);
 }
 console.log(`PASS: ${files.length} 个已跟踪文件；4108 个录音；未跟踪私人状态、签名、原始下载、APK、日志或检测输出。`);
-console.log('这是定向规则检查，不代替完整安全审计；第三方素材仅用于本私有个人备份。');
+console.log('这是定向规则检查，不代替完整安全审计；第三方素材的公开发布按发布者授权确认进行，保留原许可声明。');
